@@ -8,6 +8,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"> 
         <style>
         #map {
             width: 90vw;
@@ -16,10 +17,36 @@
             box-shadow: 0px 0px 5px 3px #000;
             height: 90vh;
         }
+        head{
+            background: #FFFAFA;
+        }
+        body{
+            background: #FFFAFA;
+        }
+        #navbar {
+            background: #FFFAFA;
+            height: fit-content;
+            width: fit-content;
+            font-size: calc(10px + 2vmin);
+            font-family: "Poppins";
+        }
+        .inner-item {
+            cursor: "pointer";
+            text-decoration: none;
+            color: black;
+        }
+        .inner-item:hover {
+            border-bottom: solid 2px black;
+        }
 
         </style>
         <title>St. Catharines Grouped by Nearest Park</title>
     </head>
+
+    <div id="navbar">
+        <h6><a class="inner-item" href="https://griffinallen.github.io/portfolio/">Back to portfolio</a></h6>
+    </div>
+
     <body>
         <div id="map">
         </div>
@@ -39,14 +66,10 @@
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         var bounds_group = new L.featureGroup([]);
-        function setBounds() {
-            if (bounds_group.getLayers().length) {
-                map.fitBounds(bounds_group.getBounds());
-            }
-            map.setMaxBounds(map.getBounds());
-        }
         map.createPane('pane_StamenTonerBackground_0');
         map.getPane('pane_StamenTonerBackground_0').style.zIndex = 400;
+        var bounds = L.latLngBounds(L.latLng(43.04823493,-79.33861747), L.latLng(43.25469083,-79.14179884));
+        map.setMaxBounds(bounds);
         var layer_StamenTonerBackground_0 = L.tileLayer('http://tile.stamen.com/toner-background/{z}/{x}/{y}.png', {
             pane: 'pane_StamenTonerBackground_0',
             opacity: 1.0,
@@ -2195,7 +2218,6 @@
                     this._div.innerHTML = 'Author: Griffin Allen<br />Data Source: Niagara Open Data';
             };
             abstract.addTo(map);
-        setBounds();
         </script>
     </body>
 </html>
